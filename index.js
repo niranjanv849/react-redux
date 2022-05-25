@@ -1,6 +1,13 @@
+//imports
 const redux = require("redux");
+const reduxLogger = require("redux-logger");
+
+//asset
 const createStore = redux.createStore;
 const combineReducers = redux.combineReducers;
+const applyMiddleware = redux.applyMiddleware;
+const logger = reduxLogger.createLogger();
+
 // action type (or) type of action
 const BUY_CAKE = "BUY_CAKE";
 const BUY_ICECREAM = "BUY_ICECREAM";
@@ -62,13 +69,11 @@ const rootReducer = combineReducers({
 });
 
 //store - requires a parameter - reducer
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(logger));
 console.log("Initial state", store.getState());
 
 //adding listerners and unsubscribe to store - subscribe
-const unsubscribe = store.subscribe(() =>
-  console.log("Updated state", store.getState())
-);
+const unsubscribe = store.subscribe(() => {});
 
 //dispatcher - accepts action to update the state
 store.dispatch(buyCake());

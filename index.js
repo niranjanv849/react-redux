@@ -34,5 +34,13 @@ const reducer = (state = initialState, action) => {
 const store = createStore(reducer);
 console.log("Initial state", store.getState());
 
-//adding listerners to store - subscribe
-store.subscribe(() => console.log("Updated state", store.getState()));
+//adding listerners and unsubscribe to store - subscribe
+const unsubscribe = store.subscribe(() =>
+  console.log("Updated state", store.getState())
+);
+
+//dispatcher - accepts action to update the state
+store.dispatch(buyCake());
+store.dispatch(buyCake());
+store.dispatch(buyCake());
+unsubscribe();

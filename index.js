@@ -1,6 +1,6 @@
 const redux = require("redux");
 const createStore = redux.createStore;
-
+const combineReducers = redux.combineReducers;
 // action type (or) type of action
 const BUY_CAKE = "BUY_CAKE";
 const BUY_ICECREAM = "BUY_ICECREAM";
@@ -19,20 +19,32 @@ function buyIceCream() {
   };
 }
 
-//initial state
-const initialState = {
+//initial state for cake
+const initialCakeState = {
   numOfCakes: 10,
+};
+
+//initial state for ice cream
+const initialIceCreamState = {
   numOfIceCreams: 20,
 };
 
-//reducer - (prevState,action) => newState
-const reducer = (state = initialState, action) => {
+//cake reducer - (prevState,action) => newState
+const cakeReducer = (state = initialCakeState, action) => {
   switch (action.type) {
     case BUY_CAKE:
       return {
         ...state,
         numOfCakes: state.numOfCakes - 1,
       };
+    default:
+      return state;
+  }
+};
+
+//ice cream reducer - (prevState,action) => newState
+const iceCreamReducer = (state = initialIceCreamState, action) => {
+  switch (action.type) {
     case BUY_ICECREAM:
       return {
         ...state,
@@ -43,8 +55,14 @@ const reducer = (state = initialState, action) => {
   }
 };
 
+//combine both reducers into one
+const rootReducer = combineReducers({
+  cake: cakeReducer,
+  iceCream: iceCreamReducer,
+});
+
 //store - requires a parameter - reducer
-const store = createStore(reducer);
+const store = createStore(rootReducer);
 console.log("Initial state", store.getState());
 
 //adding listerners and unsubscribe to store - subscribe

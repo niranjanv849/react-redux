@@ -33,3 +33,6 @@ const reducer = (state = initialState, action) => {
 //store - requires a parameter - reducer
 const store = createStore(reducer);
 console.log("Initial state", store.getState());
+
+//adding listerners to store - subscribe
+store.subscribe(() => console.log("Updated state", store.getState()));

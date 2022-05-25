@@ -1,3 +1,6 @@
+const redux = require("redux");
+const createStore = redux.createStore;
+
 // action type (or) type of action
 const BUY_CAKE = "BUY_CAKE";
 
@@ -26,3 +29,7 @@ const reducer = (state = initialState, action) => {
       return state;
   }
 };
+
+//store - requires a parameter - reducer
+const store = createStore(reducer);
+console.log("Initial state", store.getState());
